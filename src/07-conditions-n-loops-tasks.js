@@ -156,7 +156,8 @@ function doRectanglesOverlap(rect1, rect2) {
  */
 function isInsideCircle(circle, point) {
   return (
-    (point.x - circle.center.x) ** 2 + (point.y - circle.center.y) ** 2 < circle.radius ** 2
+    (point.x - circle.center.x) ** 2 + (point.y - circle.center.y) ** 2
+    < circle.radius ** 2
   );
 }
 
@@ -271,7 +272,10 @@ function isCreditCardNumber(ccn) {
     }
     const evenIndex = number * 2;
     if (evenIndex > 9) {
-      return evenIndex.toString().split('').reduce((a, b) => +a + +b, 0);
+      return evenIndex
+        .toString()
+        .split('')
+        .reduce((a, b) => +a + +b, 0);
     }
     return evenIndex;
   });
@@ -384,7 +388,8 @@ function getCommonDirectoryPath(pathes) {
     if (pathes.every((arr) => arr[ind] === el)) {
       str = `${str}${el}`;
       return false;
-    } return true;
+    }
+    return true;
   }, '');
   return str.slice(0, str.lastIndexOf('/') + 1);
 }
@@ -415,7 +420,7 @@ function getMatrixProduct(m1, m2) {
       let resCount = 0;
       const element = m1[indexM1];
       for (let index = 0; index < element.length; index += 1) {
-        resCount += (element[index] * m2[index][indexM2]);
+        resCount += element[index] * m2[index][indexM2];
       }
       if (resCount) {
         resArrMult.push(resCount);
@@ -456,8 +461,31 @@ function getMatrixProduct(m1, m2) {
  *    [    ,   ,    ]]
  *
  */
-function evaluateTicTacToePosition(/* position */) {
-  throw new Error('Not implemented');
+function evaluateTicTacToePosition(position) {
+  const arr = position;
+  let result;
+  for (let i = 0; i < arr.length; i += 1) {
+    if (
+      arr[i][0] === arr[i][1]
+      && arr[i][1] === arr[i][2]
+      && arr[i][0] !== undefined
+    ) {
+      return arr[i][0];
+    }
+    if (
+      arr[0][i] === arr[1][i]
+      && arr[1][i] === arr[2][i]
+    ) {
+      return arr[0][i];
+    }
+  }
+  if (arr[0][0] === arr[1][1] && arr[0][0] === arr[2][2]) {
+    return arr[0][0];
+  }
+  if (arr[0][2] === arr[1][1] && arr[0][2] === arr[2][0]) {
+    return position[0][2];
+  }
+  return result;
 }
 
 module.exports = {
